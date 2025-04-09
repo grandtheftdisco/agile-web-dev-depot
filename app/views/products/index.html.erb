@@ -1,3 +1,6 @@
+<%= turbo_stream_from "products" %>
+<%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+
 <% content_for :title, "Products" %>
 
 <div class="w-full">
@@ -6,7 +9,7 @@
   <% end %>
 
   <div class="flex justify-between items-center pb-8">
-    <h1 class="mx-auto text-lg font-bold text-4xl">Products</h1>
+    <h1 class="mx-auto font-bold text-4xl">Products</h1>
   </div>
 
   <table id="products" class="mx-auto">
@@ -14,7 +17,9 @@
       <tr>
         <td colspan="3">
           <div class="mt-8">
-            <%= link_to 'New product', new_product_path, class: "inline rounded-lg py-3 px-5 bg-green-600 text-white block font-medium" %>
+            <%= link_to 'New product', 
+                        new_product_path, 
+                        class: "inline rounded-lg py-3 px-5 bg-green-600 text-white block font-medium" %>
           </div>
         </td>
       </tr>
@@ -29,9 +34,12 @@
           </td>
 
           <td>
-            <h1 class="text-xl font-bold mb-3"><%= product.title %></h1>
-            <p>
+            <h1 class="text-xl font-bold"><%= product.title %></h1>
+            <p class="my-3">
               <%= truncate(strip_tags(product.description), length: 80) %>
+            </p>
+            <p>
+              <%= number_to_currency(product.price) %>
             </p>
           </td>
 
